@@ -11,7 +11,7 @@ namespace PickleAndHope.Controllers
 {
     // controller should be the thing telling others what to do
     // exposed at this particular endpoint
-    // Nathan changes [controller] to something that pertains to this class more directly
+    // Nathan changes [controller] to something that pertains to this class more directlmodely
     // things in square brackets are end points
     // this is being exposed at this end point; [controller] will be subbed for pickles, the word attached to Controller below; this is the particular url endpoint
     [Route("api/[controller]")]
@@ -49,8 +49,8 @@ namespace PickleAndHope.Controllers
             var existingPickle = _repository.GetByType(pickleToAdd.Type);
             if (existingPickle == null)
             {
-                _repository.Add(pickleToAdd);
-                return Created("", pickleToAdd);
+                var newPickle = _repository.Add(pickleToAdd);
+                return Created("", newPickle);
             }
             else
             {
@@ -79,6 +79,17 @@ namespace PickleAndHope.Controllers
             var pickle = _repository.GetById(id);
 
             if (pickle == null) return NotFound("No pickle with that id could be found.");
+
+            return Ok(pickle);
+        }
+
+        // api/pickles/type/dill
+        [HttpGet("type/{type}/")]
+        public IActionResult GetPickleByType(string type)
+        {
+            var pickle = _repository.GetByType(type);
+
+            if (pickle == null) return NotFound("No pickle with that type exists");
 
             return Ok(pickle);
         }
