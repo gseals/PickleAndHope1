@@ -20,7 +20,12 @@ namespace PickleAndHope.Controllers
     // this controller inherits from the controllerBase class; gives us http methods like ok and notfound for free
     public class PicklesController : ControllerBase
     {
-        private PickleRepository _repository = new PickleRepository();
+        PickleRepository _repository;
+
+        public PicklesController(PickleRepository repository)
+        {
+            _repository = repository;
+        }
 
         // square brackets start with brackets; HttpPost adds something
         // if we want to identify a specific endpoint, we can write [HttpPost("add")] which means api/pickles/add;
