@@ -13,7 +13,5 @@ namespace PickleAndHope.Models
         public int NumberInStock { get; set; }
         public decimal Price { get; set; }
         public string Size { get; set; }
-
-
     }
 }

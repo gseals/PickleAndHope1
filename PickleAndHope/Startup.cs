@@ -31,6 +31,13 @@ namespace PickleAndHope
             services.AddControllers();
             //transient says a class gets create every time somebody asks for it. the default when requesting a service;
             //saying it is transiemt: when someone asks for a copy of asp.net core, give them a new one
+
+            // name of the policy here doesn't matter
+            services.AddCors(options =>
+                options.AddPolicy("ItsAllGood",
+                    builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
+                );
+
             services.AddTransient<PickleRepository>();
             //when someone asks for a copy of this classm give them one, but only give them one for each API request
             //we may not use AddScoped very often
@@ -56,6 +63,8 @@ namespace PickleAndHope
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("ItsAllGood");
 
             app.UseAuthorization();
 
